@@ -39,6 +39,7 @@ jobs:
   database:
     name: Database
     runs-on: ubuntu-latest
+    needs: [frontend, backend]
 
     steps:
     - name: Checkout
