@@ -1,75 +1,22 @@
-# name: Parallel CI/CD
+name: SSH Deploy
 
-# on:
-#   push:
-#     branches:
-#       - main
-
-
-# jobs:
-
-#   frontend:
-#     name: Frontend
-#     runs-on: ubuntu-latest
-
-#     steps:
-#     - name: Checkout
-#       uses: actions/checkout@v4
-
-#     - name: Frontend Build
-#       run: |
-#         echo "Frontend build running"
-#         echo "Frontend deployed"
-
-
-#   backend:
-#     name: Backend
-#     runs-on: ubuntu-latest
-
-#     steps:
-#     - name: Checkout
-#       uses: actions/checkout@v4
-
-#     - name: Backend Build
-#       run: |
-#         echo "Backend build running"
-#         echo "Backend deployed"
-
-
-#   database:
-#     name: Database
-#     runs-on: ubuntu-latest
-#     needs: [frontend, backend]
-
-#     steps:
-#     - name: Checkout
-#       uses: actions/checkout@v4
-
-#     - name: Database Update
-#       run: |
-#         echo "Database migration running"
-#         echo "Database updated"
-
-
-name: Parallel CI/CD
 on:
   push:
     branches:
       - main
+
 jobs:
   ssh:
-    name: SSH Deploy
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
 
+    steps:
+      - name: SSH To EC2
+        uses: appleboy/ssh-action@v1
         with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ubuntu
-        key: ${{ secrets.EC2_SSH_KEY }}
-        script: |
-          echo "SSH connection established">>ssh.txt
-          echo "Deploying application..."
-          # Add your deployment commands here
-          echo whoami
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            echo "SSH connection established"
+            whoami
+            hostname
