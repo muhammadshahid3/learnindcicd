@@ -3,10 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CPU Stress Test</title>
 </head>
 <body>
-    helllo
-    
+    <h1>CPU Stress Test Running...</h1>
+
+    <script>
+        function stressCPU() {
+            const endTime = Date.now() + 30000; // 30 seconds
+
+            while (Date.now() < endTime) {
+                Math.sqrt(Math.random() * 1000000);
+            }
+
+            console.log("CPU stress test completed");
+        }
+
+        stressCPU();
+    </script>
 </body>
 </html>
